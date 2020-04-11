@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Rebound extends StatelessWidget{
 
   void openSettings(){
-    //todo: implement showstuff
+    //todo: implement openSettings
   }
 
   @override
