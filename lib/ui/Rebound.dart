@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:rebound_mtb/ui/weatherWidget.dart';
+import 'package:rebound_mtb/util/weatherUtils.dart' as weatherUtils;
 
 class Rebound extends StatelessWidget{
 
-  void openSettings(){
-    //todo: implement openSettings
+  void openSettings() async{
+    //todo: implement openSettings properly - currently used to test weather data fetch
+    Map data = await weatherUtils.getWeather(weatherUtils.appId, weatherUtils.defaultCity);
+    print(data.toString());
+
   }
 
   @override
@@ -21,6 +26,7 @@ class Rebound extends StatelessWidget{
 
         ],
       ),
+      body: new WeatherWidget(),
     );
   }
 
