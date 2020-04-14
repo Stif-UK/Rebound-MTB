@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:rebound_mtb/util/weatherUtils.dart' as weatherUtils;
+import 'package:rebound_mtb/model/weather_forecast_model.dart';
+import 'package:rebound_mtb/network/network.dart';
 
 class WeatherWidget extends StatefulWidget{
   @override
@@ -8,12 +10,18 @@ class WeatherWidget extends StatefulWidget{
 }
 
 class _WeatherWidgetState extends State<WeatherWidget> {
+  Future<weather_forecast_model> forecastObject;
+  String latitude = weatherUtils.defaultLat;
+  String longitude = weatherUtils.defaultLon;
 
-  void updateWeather() async {
-    Map data = await weatherUtils.getWeather(weatherUtils.appId, weatherUtils.defaultCity);
-    print(data.toString());
-
+  @override
+  void initState() {
+    // TODO: Update initialisation of location
+    super.initState();
+    forecastObject = Network().getWeatherForecast(latitude, longitude);
   }
+
+
 
   @override
   Widget build(BuildContext context) {

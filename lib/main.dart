@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rebound_mtb/ui/Rebound.dart';
+import 'package:rebound_mtb/ui/rebound.dart';
 
 void main() {
   runApp(
