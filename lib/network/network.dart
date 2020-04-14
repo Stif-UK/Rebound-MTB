@@ -7,10 +7,10 @@ import 'dart:convert';
 
 class Network{
   Future<weather_forecast_model> getWeatherForecast(String lat, String lon) async {
-    var finalUrl = "https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&appid="+util.appId+"&units=metric";
+    var finalUrl = "https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&appid="+util.Utils.getAppID()+"&units=metric";
 
     final response = await get(Uri.encodeFull(finalUrl));
-    print("URL: ${Uri.encodeFull(finalUrl)}"+"/n - called");
+    print("URL: ${Uri.encodeFull(finalUrl)}"+" - called");
 
     if(response.statusCode == 200){
       print(weather_forecast_model.fromJson(json.decode(response.body)));

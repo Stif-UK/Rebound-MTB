@@ -99,7 +99,7 @@ class Current {
     uvi = json['uvi'];
     clouds = json['clouds'];
     visibility = json['visibility'];
-    windSpeed = json['wind_speed'];
+    windSpeed = json['wind_speed'].toDouble();
     windDeg = json['wind_deg'];
     if (json['weather'] != null) {
       weather = new List<Weather>();
