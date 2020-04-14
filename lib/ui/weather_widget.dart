@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:rebound_mtb/util/weatherUtils.dart' as weatherUtils;
+import 'package:rebound_mtb/util/util.dart' as util;
 import 'package:rebound_mtb/model/weather_forecast_model.dart';
 import 'package:rebound_mtb/network/network.dart';
 
@@ -11,8 +11,8 @@ class WeatherWidget extends StatefulWidget{
 
 class _WeatherWidgetState extends State<WeatherWidget> {
   Future<weather_forecast_model> forecastObject;
-  String latitude = weatherUtils.defaultLat;
-  String longitude = weatherUtils.defaultLon;
+  String latitude = util.defaultLat;
+  String longitude = util.defaultLon;
 
   @override
   void initState() {

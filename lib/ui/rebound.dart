@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:rebound_mtb/ui/weather_widget.dart';
-import 'package:rebound_mtb/util/weatherUtils.dart' as weatherUtils;
 
 class Rebound extends StatelessWidget{
 

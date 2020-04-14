@@ -1,13 +1,13 @@
 import 'dart:convert';
 
 import 'package:rebound_mtb/model/weather_forecast_model.dart';
-import 'package:rebound_mtb/util/weatherUtils.dart' as weatherUtils;
+import 'package:rebound_mtb/util/util.dart' as util;
 import 'package:http/http.dart';
 import 'dart:convert';
 
 class Network{
   Future<weather_forecast_model> getWeatherForecast(String lat, String lon) async {
-    var finalUrl = "https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&appid="+weatherUtils.appId+"&units=metric";
+    var finalUrl = "https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&appid="+util.appId+"&units=metric";
 
     final response = await get(Uri.encodeFull(finalUrl));
     print("URL: ${Uri.encodeFull(finalUrl)}"+"/n - called");
