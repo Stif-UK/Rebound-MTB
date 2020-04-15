@@ -40,6 +40,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                 if(snapshot.hasData){
                   return Column(
                     children: <Widget>[
+                      //surface the main weather view widget
                       weatherMainView(snapshot)
                     ],
                   );
@@ -58,7 +59,9 @@ class _WeatherWidgetState extends State<WeatherWidget> {
     }
   }
 
-  /*I've setup an input search box as the header,
+  /*
+  textFieldView returns a search input box widget.
+  I've setup an input search box as the header,
   however for implementation this needs to be swapped out for UI to
   allow selection between the forest or bikepark
   */
