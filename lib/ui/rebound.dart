@@ -12,17 +12,17 @@ class Rebound extends StatelessWidget{
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      appBar: new AppBar(
-        title: Text("Rebound MTB"),
-        centerTitle: false,
-        backgroundColor: Colors.orangeAccent,
-        actions: <Widget>[
-          new IconButton(
-              icon: Icon(Icons.settings),
-              onPressed: openSettings)
-
-        ],
-      ),
+//      appBar: new AppBar(
+//        title: Text("Rebound MTB"),
+//        centerTitle: false,
+//        backgroundColor: Colors.orangeAccent,
+//        actions: <Widget>[
+//          new IconButton(
+//              icon: Icon(Icons.settings),
+//              onPressed: openSettings)
+//
+//        ],
+//      ),
       body: new WeatherWidget(),
     );
   }

@@ -6,7 +6,7 @@ This helper will take a weather condition as an input and return an icon
 for the weather.
  */
 
-Widget getWeatherIcon( {String weatherDescription, double size}){
+Widget getWeatherIcon({String weatherDescription, double size}){
 
   switch(weatherDescription){
     case "Clear":

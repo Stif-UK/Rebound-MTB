@@ -92,11 +92,11 @@ class Current {
     sunrise = json['sunrise'];
     sunset = json['sunset'];
     temp = json['temp'].toDouble();
-    feelsLike = json['feels_like'];
+    feelsLike = json['feels_like'].toDouble();
     pressure = json['pressure'];
     humidity = json['humidity'];
-    dewPoint = json['dew_point'];
-    uvi = json['uvi'];
+    dewPoint = json['dew_point'].toDouble();
+    uvi = json['uvi'].toDouble();
     clouds = json['clouds'];
     visibility = json['visibility'];
     windSpeed = json['wind_speed'].toDouble();
@@ -186,7 +186,7 @@ class Hourly {
     feelsLike = json['feels_like'].toDouble();
     pressure = json['pressure'];
     humidity = json['humidity'];
-    dewPoint = json['dew_point'];
+    dewPoint = json['dew_point'].toDouble();
     clouds = json['clouds'];
     windSpeed = json['wind_speed'].toDouble();
     windDeg = json['wind_deg'];
@@ -256,7 +256,7 @@ class Daily {
         : null;
     pressure = json['pressure'];
     humidity = json['humidity'];
-    dewPoint = json['dew_point'];
+    dewPoint = json['dew_point'].toDouble();
     windSpeed = json['wind_speed'].toDouble();
     windDeg = json['wind_deg'];
     if (json['weather'] != null) {
@@ -266,7 +266,7 @@ class Daily {
       });
     }
     clouds = json['clouds'];
-    uvi = json['uvi'];
+    uvi = json['uvi'].toDouble();
   }
 
   Map<String, dynamic> toJson() {
@@ -305,12 +305,12 @@ class Temp {
   Temp({this.day, this.min, this.max, this.night, this.eve, this.morn});
 
   Temp.fromJson(Map<String, dynamic> json) {
-    day = json['day'];
-    min = json['min'];
-    max = json['max'];
-    night = json['night'];
-    eve = json['eve'];
-    morn = json['morn'];
+    day = json['day'].toDouble();
+    min = json['min'].toDouble();
+    max = json['max'].toDouble();
+    night = json['night'].toDouble();
+    eve = json['eve'].toDouble();
+    morn = json['morn'].toDouble();
   }
 
   Map<String, dynamic> toJson() {
@@ -334,10 +334,10 @@ class FeelsLike {
   FeelsLike({this.day, this.night, this.eve, this.morn});
 
   FeelsLike.fromJson(Map<String, dynamic> json) {
-    day = json['day'];
-    night = json['night'];
-    eve = json['eve'];
-    morn = json['morn'];
+    day = json['day'].toDouble();
+    night = json['night'].toDouble();
+    eve = json['eve'].toDouble();
+    morn = json['morn'].toDouble();
   }
 
   Map<String, dynamic> toJson() {

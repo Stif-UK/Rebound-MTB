@@ -31,7 +31,8 @@ class _WeatherWidgetState extends State<WeatherWidget> {
     Widget build(BuildContext context) {
       return ListView(
         children: <Widget>[
-          textFieldView(),
+          //Display search box with customLocationSearchBox()
+          //customLocationSearchBox(),
           Container(
             child: FutureBuilder<weather_forecast_model>(
               future: forecastObject,
@@ -65,7 +66,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
   however for implementation this needs to be swapped out for UI to
   allow selection between the forest or bikepark
   */
-  Widget textFieldView() {
+  Widget customLocationSearchBox() {
     return Container(
       child: TextField(
         decoration: InputDecoration(
@@ -82,15 +83,4 @@ class _WeatherWidgetState extends State<WeatherWidget> {
     );
   }
 
-
-
-
-//  @override
-//  Widget build(BuildContext context) {
-//    // TODO: implement build
-//    return Container(
-//      alignment: Alignment.center,
-//      child: new Text("Testing"),
-//    );
-//  }
 
