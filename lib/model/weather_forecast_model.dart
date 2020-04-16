@@ -1,7 +1,7 @@
 import 'dart:core';
 
 
-class weather_forecast_model {
+class weatherForecastModel {
   double lat;
   double lon;
   String timezone;
@@ -9,7 +9,7 @@ class weather_forecast_model {
   List<Hourly> hourly;
   List<Daily> daily;
 
-  weather_forecast_model(
+  weatherForecastModel(
       {this.lat,
         this.lon,
         this.timezone,
@@ -17,7 +17,7 @@ class weather_forecast_model {
         this.hourly,
         this.daily});
 
-  weather_forecast_model.fromJson(Map<String, dynamic> json) {
+  weatherForecastModel.fromJson(Map<String, dynamic> json) {
     lat = json['lat'];
     lon = json['lon'];
     timezone = json['timezone'];

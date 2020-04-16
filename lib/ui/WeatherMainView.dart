@@ -7,7 +7,7 @@ import 'package:rebound_mtb/util/utils.dart' as utils;
 The weatherMainView widget shows and styles the weather information for today
 and will display prominently in the upper centre of the screen.
  */
-Widget weatherMainView(AsyncSnapshot<weather_forecast_model> snapshot){
+Widget weatherMainView(AsyncSnapshot<weatherForecastModel> snapshot){
   var forecastList = snapshot.data.current;
   var formatDate = new DateTime.fromMillisecondsSinceEpoch(snapshot.data.current.dt * 1000);
   String currentWeather = forecastList.weather[0].main;

@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:rebound_mtb/ui/WeatherBottomView.dart';
 import 'package:rebound_mtb/util/utils.dart' as util;
 import 'package:rebound_mtb/model/weather_forecast_model.dart';
 import 'package:rebound_mtb/network/network.dart';
@@ -12,7 +13,7 @@ class WeatherWidget extends StatefulWidget{
 }
 
 class _WeatherWidgetState extends State<WeatherWidget> {
-  Future<weather_forecast_model> forecastObject;
+  Future<weatherForecastModel> forecastObject;
   String latitude = util.Utils.getLat();
   String longitude = util.Utils.getLon();
 
@@ -34,15 +35,17 @@ class _WeatherWidgetState extends State<WeatherWidget> {
           //Display search box with customLocationSearchBox()
           //customLocationSearchBox(),
           Container(
-            child: FutureBuilder<weather_forecast_model>(
+            child: FutureBuilder<weatherForecastModel>(
               future: forecastObject,
-                builder: (BuildContext context, AsyncSnapshot<weather_forecast_model> snapshot){
+                builder: (BuildContext context, AsyncSnapshot<weatherForecastModel> snapshot){
 
                 if(snapshot.hasData){
                   return Column(
                     children: <Widget>[
                       //surface the main weather view widget
-                      weatherMainView(snapshot)
+                      weatherMainView(snapshot),
+                      //surface the bottom weather view widget
+                      weatherBottomView(snapshot, context),
                     ],
                   );
 
