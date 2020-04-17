@@ -14,6 +14,7 @@ class WeatherWidget extends StatefulWidget{
 
 class _WeatherWidgetState extends State<WeatherWidget> {
   Future<weatherForecastModel> forecastObject;
+  DateTime lastRefreshed = DateTime.now();
   String latitude = util.Utils.getLat();
   String longitude = util.Utils.getLon();
 
@@ -30,44 +31,59 @@ class _WeatherWidgetState extends State<WeatherWidget> {
 
     @override
     Widget build(BuildContext context) {
-      return ListView(
-        children: <Widget>[
-          //Display search box with customLocationSearchBox()
-          //customLocationSearchBox(),
-          Container(
-            child: FutureBuilder<weatherForecastModel>(
-              future: forecastObject,
-                builder: (BuildContext context, AsyncSnapshot<weatherForecastModel> snapshot){
+      return RefreshIndicator(
+        onRefresh: _refreshWeather,
+        child: ListView(
+          children: <Widget>[
+            //Display search box with customLocationSearchBox()
+            //customLocationSearchBox(),
+            Container(
+              child: FutureBuilder<weatherForecastModel>(
+                future: forecastObject,
+                  builder: (BuildContext context, AsyncSnapshot<weatherForecastModel> snapshot){
 
-                if(snapshot.hasData){
-                  return Column(
-                    children: <Widget>[
-                      //surface the main weather view widget
-                      weatherMainView(snapshot),
-                      //surface the bottom weather view widget
-                      weatherBottomView(snapshot, context),
-                    ],
-                  );
+                  if(snapshot.hasData){
+                    return Column(
+                      children: <Widget>[
+                        //surface the main weather view widget
+                        weatherMainView(snapshot),
+                        //surface the bottom weather view widget
+                        weatherBottomView(snapshot, context),
+                      ],
+                    );
 
-                }else{
-                  return Container(
-                    child: Center(child: CircularProgressIndicator(),)
-                  );
-                }
+                  }else{
+                    return Container(
+                      child: Center(child: CircularProgressIndicator(),)
+                    );
+                  }
 
-      },
-          )
-          )
-        ],
+        },
+            )
+            )
+          ],
+        ),
       );
     }
+
+  Future<void> _refreshWeather() async {
+    var difference = DateTime.now().difference(lastRefreshed).inMinutes;
+    print("time since last refresh: " + difference.toString());
+    //only refresh the API call if at least 10 minutes have passed
+    if(difference > 10) {
+      setState(() {
+        forecastObject = Network().getWeatherForecast(latitude, longitude);
+        lastRefreshed = DateTime.now();
+      });
+    }
+
+    return forecastObject;
   }
+}
 
   /*
   textFieldView returns a search input box widget.
-  I've setup an input search box as the header,
-  however for implementation this needs to be swapped out for UI to
-  allow selection between the forest or bikepark
+  not currently used in implementation.
   */
   Widget customLocationSearchBox() {
     return Container(
