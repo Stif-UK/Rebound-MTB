@@ -6,7 +6,7 @@ import 'ForecastCard.dart';
 
 Widget weatherBottomView(AsyncSnapshot<weatherForecastModel> snapshot,BuildContext context ){
   var dailyForecastList = snapshot.data.daily;
-  dailyForecastList.removeAt(0); //pop the first entry from the list as 'today' is already displayed
+  if(dailyForecastList.length > 7) dailyForecastList.removeAt(0); //pop the first entry from the list as 'today' is already displayed
 
   return Column(
     //begin with a left alignment
