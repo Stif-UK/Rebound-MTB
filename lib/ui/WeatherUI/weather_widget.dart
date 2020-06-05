@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:rebound_mtb/ui/WeatherBottomView.dart';
+import 'package:rebound_mtb/ui/WeatherUI/WeatherBottomView.dart';
 import 'package:rebound_mtb/util/utils.dart' as util;
 import 'package:rebound_mtb/model/weather_forecast_model.dart';
 import 'package:rebound_mtb/network/network.dart';
