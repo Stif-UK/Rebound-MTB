@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rebound_mtb/ui/MapsUI/Maps_Widget.dart';
+import 'package:rebound_mtb/ui/MapsUI/Accident_Widget.dart';
 import 'package:rebound_mtb/ui/WeatherUI/weather_widget.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -14,7 +14,7 @@ class _ReboundState extends State<Rebound> {
   int _currentIndex = 0;
   final List<Widget> _children =[
     WeatherWidget(),
-    MapsWidget(),
+    AccidentWidget(),
   ];
 
   void openSettings() async{
@@ -49,7 +49,7 @@ class _ReboundState extends State<Rebound> {
         ),
         BottomNavigationBarItem(
           icon: new Icon(Icons.priority_high),
-          title: new Text("Crash!"),
+          title: new Text("Accidents"),
         )
       ]),
     );

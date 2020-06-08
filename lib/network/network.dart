@@ -18,6 +18,9 @@ class Network{
     }else{
       throw Exception("Error getting weather forecast" + response.statusCode.toString());
     }
+
+    //Wrap above in 'try'; add .timeout() method to http GET call; Catch timeout
+    //exception (with others) and pop up alert dialog.
   }
 }
 
