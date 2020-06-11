@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:rebound_mtb/ui/WeatherUI/WeatherBottomView.dart';
 import 'package:rebound_mtb/util/utils.dart' as util;
 import 'package:rebound_mtb/model/weather_forecast_model.dart';
-import 'package:rebound_mtb/network/network.dart';
+import 'package:rebound_mtb/network/WeatherNetwork.dart';
+import 'package:rebound_mtb/ui/Dialogs/Alerts.dart' as alerts;
 
 import 'WeatherMainView.dart';
 
@@ -22,27 +23,27 @@ class _WeatherWidgetState extends State<WeatherWidget> {
   void initState() {
     // TODO: Update initialisation of location
     super.initState();
-    forecastObject = Network().getWeatherForecast(latitude, longitude);
+    forecastObject = WeatherNetwork().getWeatherForecast(latitude, longitude);
 
-    forecastObject.then((weather) {
-      print(weather.current.temp);
-    });
+//    forecastObject.then((weather) {
+//      print(weather.current.temp);
+//    });
   }
 
-    @override
-    Widget build(BuildContext context) {
-      return RefreshIndicator(
-        onRefresh: _refreshWeather,
-        child: ListView(
-          children: <Widget>[
-            //Display search box with customLocationSearchBox()
-            //customLocationSearchBox(),
-            Container(
+  @override
+  Widget build(BuildContext context) {
+    return RefreshIndicator(
+      onRefresh: _refreshWeather,
+      child: ListView(
+        children: <Widget>[
+          //Display search box with customLocationSearchBox()
+          //customLocationSearchBox(),
+          Container(
               child: FutureBuilder<weatherForecastModel>(
                 future: forecastObject,
-                  builder: (BuildContext context, AsyncSnapshot<weatherForecastModel> snapshot){
-
-                  if(snapshot.hasData){
+                builder: (BuildContext context,
+                    AsyncSnapshot<weatherForecastModel> snapshot) {
+                  if (snapshot.hasData) {
                     return Column(
                       children: <Widget>[
                         //surface the main weather view widget
@@ -51,33 +52,47 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                         weatherBottomView(snapshot, context),
                       ],
                     );
-
-                  }else{
+                  } else {
+                    forecastObject.then((value) => (print("Got the forecast!")),
+                        onError: (error) {
+                          alerts.Alerts.failedAPICallAlert(
+                              context, error.toString());
+                        }
+                    );
                     return Container(
-                      child: Center(child: CircularProgressIndicator(),)
+                        child: Center(child: CircularProgressIndicator(),)
                     );
                   }
-
-        },
-            )
-            )
-          ],
-        ),
-      );
-    }
+                },
+              )
+          )
+        ],
+      ),
+    );
+  }
 
   Future<void> _refreshWeather() async {
-    var difference = DateTime.now().difference(lastRefreshed).inMinutes;
+    var difference = DateTime
+        .now()
+        .difference(lastRefreshed)
+        .inMinutes;
     print("time since last refresh: " + difference.toString());
     //only refresh the API call if at least 10 minutes have passed
-    if(difference > 10) {
+    if (difference > 10) {
       setState(() {
-        forecastObject = Network().getWeatherForecast(latitude, longitude);
+        forecastObject = WeatherNetwork().getWeatherForecast(latitude, longitude);
+        forecastObject.then((value) => (print("Got the forecast on refresh!")),
+            onError: (error){
+              alerts.Alerts.failedAPICallAlert(context, error.toString());
+            }
+        );
+
         lastRefreshed = DateTime.now();
       });
-    }
 
-    return forecastObject;
+
+      return forecastObject;
+    }
   }
 }
 

@@ -2,14 +2,6 @@ import 'package:intl/intl.dart';
 
 
 class Utils {
-/*
-Openweathermap.com API key - do not share to github - todo: set up firebase keystore
- */
-static String getAppID(){
-  return "";
-}
-
-
   /*
 Default latitude and longitude for Lennox Forest.
 Absolutely todo:get rid of this crap...

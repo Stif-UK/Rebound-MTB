@@ -1,14 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:rebound_mtb/Copy/Accident_copy.dart';
 import 'package:rebound_mtb/Services/LocationServices.dart';
 import 'package:rebound_mtb/model/ThreeWordsModel.dart';
 import 'package:rebound_mtb/model/UserLocation.dart';
-import 'package:rebound_mtb/network/what_three_words_network.dart';
+import 'package:rebound_mtb/network/WhatThreeWordsNetwork.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:launch_review/launch_review.dart';
+import 'package:rebound_mtb/UI/Dialogs/Alerts.dart' as alert;
 
 
 
@@ -139,18 +139,27 @@ class _AccidentWidgetState extends State<AccidentWidget>{
       
     });
 
-    UserLocation location =  await LocationService.getLocation();
-    ThreeWordsModel threeWords = await what_three_words_network().getThreeWords(location.latitude, location.longitude);
-    String threeString = threeWords.words;
-    //Adding a small artificial delay to avoid the loading indicator looking janky!
-    Timer(Duration(seconds: 3),(){
+    try {
+      UserLocation location =  await LocationService.getLocation();
+      ThreeWordsModel threeWords = await WhatThreeWordsNetwork().getThreeWords(location.latitude, location.longitude);
+      String threeString = threeWords.words;
+      //Adding a small artificial delay to avoid the loading indicator looking janky!
+      Timer(Duration(seconds: 3),(){
+        setState(() {
+          _isLoading = false;
+          _locationText = threeString;
+          _locationStyle = locationStyleAfter;
+        });
+      }
+      );
+    } on Exception catch (e) {
       setState(() {
         _isLoading = false;
-        _locationText = threeString;
-        _locationStyle = locationStyleAfter;
       });
+      //Show alert dialog with failure info
+      alert.Alerts.failedAPICallAlert(context, e.toString());
+
     }
-    );
 
   }
 }

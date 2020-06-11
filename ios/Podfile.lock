@@ -1,5 +1,7 @@
 PODS:
   - Flutter (1.0.0)
+  - launch_review (0.0.1):
+    - Flutter
   - location (0.0.1):
     - Flutter
   - location_web (0.0.1):
@@ -13,6 +15,7 @@ PODS:
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
+  - launch_review (from `.symlinks/plugins/launch_review/ios`)
   - location (from `.symlinks/plugins/location/ios`)
   - location_web (from `.symlinks/plugins/location_web/ios`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
@@ -22,6 +25,8 @@ DEPENDENCIES:
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
+  launch_review:
+    :path: ".symlinks/plugins/launch_review/ios"
   location:
     :path: ".symlinks/plugins/location/ios"
   location_web:
@@ -35,6 +40,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  launch_review: 75d5a956ba8eaa493e9c9d4bf4c05e505e8d5ed0
   location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
   location_web: b94e7433cfe28c0f7c8923c2ee482824b32e55a7
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
