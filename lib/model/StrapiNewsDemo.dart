@@ -1,13 +1,13 @@
 class StrapiNewsDemo {
   bool draft;
-  List<Null> postImages;
+  List<PostImages> postImages;
   String sId;
   String headline;
   String body;
   String createdAt;
   String updatedAt;
   int iV;
-  CoverImage coverImage;
+  PostImages coverImage;
   String id;
 
   StrapiNewsDemo(
@@ -25,9 +25,9 @@ class StrapiNewsDemo {
   StrapiNewsDemo.fromJson(Map<String, dynamic> json) {
     draft = json['Draft'];
     if (json['Post_Images'] != null) {
-      postImages = new List<Null>();
+      postImages = new List<PostImages>();
       json['Post_Images'].forEach((v) {
-        //postImages.add(new Null.fromJson(v));
+        postImages.add(new PostImages.fromJson(v));
       });
     }
     sId = json['_id'];
@@ -37,7 +37,7 @@ class StrapiNewsDemo {
     updatedAt = json['updatedAt'];
     iV = json['__v'];
     coverImage = json['Cover_Image'] != null
-        ? new CoverImage.fromJson(json['Cover_Image'])
+        ? new PostImages.fromJson(json['Cover_Image'])
         : null;
     id = json['id'];
   }
@@ -45,9 +45,9 @@ class StrapiNewsDemo {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['Draft'] = this.draft;
-//    if (this.postImages != null) {
-//      data['Post_Images'] = this.postImages.map((v) => v.toJson()).toList();
-//    }
+    if (this.postImages != null) {
+      data['Post_Images'] = this.postImages.map((v) => v.toJson()).toList();
+    }
     data['_id'] = this.sId;
     data['Headline'] = this.headline;
     data['Body'] = this.body;
@@ -62,7 +62,7 @@ class StrapiNewsDemo {
   }
 }
 
-class CoverImage {
+class PostImages {
   String sId;
   String name;
   String alternativeText;
@@ -82,7 +82,7 @@ class CoverImage {
   int iV;
   String id;
 
-  CoverImage(
+  PostImages(
       {this.sId,
         this.name,
         this.alternativeText,
@@ -102,7 +102,7 @@ class CoverImage {
         this.iV,
         this.id});
 
-  CoverImage.fromJson(Map<String, dynamic> json) {
+  PostImages.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     name = json['name'];
     alternativeText = json['alternativeText'];
@@ -152,15 +152,18 @@ class CoverImage {
 
 class Formats {
   Thumbnail thumbnail;
+  Thumbnail large;
   Thumbnail medium;
   Thumbnail small;
 
-  Formats({this.thumbnail, this.medium, this.small});
+  Formats({this.thumbnail, this.large, this.medium, this.small});
 
   Formats.fromJson(Map<String, dynamic> json) {
     thumbnail = json['thumbnail'] != null
         ? new Thumbnail.fromJson(json['thumbnail'])
         : null;
+    large =
+    json['large'] != null ? new Thumbnail.fromJson(json['large']) : null;
     medium =
     json['medium'] != null ? new Thumbnail.fromJson(json['medium']) : null;
     small =
@@ -171,6 +174,9 @@ class Formats {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.thumbnail != null) {
       data['thumbnail'] = this.thumbnail.toJson();
+    }
+    if (this.large != null) {
+      data['large'] = this.large.toJson();
     }
     if (this.medium != null) {
       data['medium'] = this.medium.toJson();
@@ -226,3 +232,4 @@ class Thumbnail {
     return data;
   }
 }
+

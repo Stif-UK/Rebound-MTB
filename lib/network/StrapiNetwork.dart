@@ -22,8 +22,15 @@ class StrapiNetwork{
       switch(response.statusCode){
 
         case 200:
-          print("Got a ${response.statusCode} back!");
-          return StrapiNewsDemo.fromJson(json.decode(response.body));
+          print("Got a ${response.statusCode} back!\n"
+              "${response.body}");
+          final jsonResponse = json.decode(response.body);
+          return StrapiNewsDemo.fromJson(jsonResponse[0]);
+
+//          final jsonresponse = json.decode(response.body);
+//          return Users.fromJson(jsonresponse);
+//          return Users.fromJson(jsonresponse[0]);
+
 
         case 401:
           print("Got a ${response.statusCode} back!");
@@ -43,14 +50,7 @@ class StrapiNetwork{
 
 
       }
-//
-//      if(response.statusCode == 200){
-//        print(weatherForecastModel.fromJson(json.decode(response.body)));
-//        return weatherForecastModel.fromJson(json.decode(response.body));
-//
-//      }else{
-//        throw Exception("Error getting weather forecast" + response.statusCode.toString());
-//      }
+
     } on SocketException  {
       print("Got a SocketException!");
       throw FetchDataException("No internet connection");

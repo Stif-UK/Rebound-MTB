@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:rebound_mtb/model/StrapiNewsDemo.dart';
 
 Widget NewsWidgetContent(AsyncSnapshot<StrapiNewsDemo> snapshot){
-  var theNews = snapshot.data.headline;
+  var headline = snapshot.data.headline;
+  var content = snapshot.data.body;
 
-  return Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    crossAxisAlignment: CrossAxisAlignment.center,
+  return ListView(
+    scrollDirection: Axis.vertical,
+    shrinkWrap: true,
+    cacheExtent: 1000.0,
     children: <Widget>[
-      Text("Today's headline: $theNews"),
+      Text("Headline: $headline"),
+      Text("Content: $content"),
     ],
-  );
+
+    );
 }
 

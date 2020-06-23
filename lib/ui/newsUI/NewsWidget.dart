@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:rebound_mtb/model/StrapiNewsDemo.dart';
 import 'package:rebound_mtb/network/StrapiNetwork.dart';
 import 'package:rebound_mtb/ui/newsUI/NewsWidgetContent.dart';
+import 'package:rebound_mtb/ui/Dialogs/Alerts.dart' as alerts;
+
 
 
 
@@ -32,27 +34,29 @@ class _NewsWidgetState extends State<NewsWidget> {
             future: newsObject,
             builder: (BuildContext context,
                 AsyncSnapshot<StrapiNewsDemo> snapshot) {
+
               if (snapshot.hasData) {
-                return Column(
+                return ListView(
 
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text("We've got some data!"),
-                    SizedBox(
-                      height: 50,
-                    ),
-                    //Get the data
-
-                    NewsWidgetContent(snapshot),
+                    NewsWidgetContent(snapshot)
                   ],
                 );
               }
               else {
+                newsObject.then((value) => (print("Got the news!")),
+                    onError: (error) {
+                      alerts.Alerts.failedAPICallAlert(
+                          context, error.toString());
+                    }
+                );
                 return Container(
                     child: Center(child: CircularProgressIndicator(),)
                 );
-              };
+              }
+
+
+
             }));
   }
 
