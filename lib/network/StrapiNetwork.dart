@@ -25,6 +25,13 @@ class StrapiNetwork{
           print("Got a ${response.statusCode} back!\n"
               "${response.body}");
           final jsonResponse = json.decode(response.body);
+          List<StrapiNewsDemo> news = [];
+
+          for(var n in jsonResponse){
+            StrapiNewsDemo article = StrapiNewsDemo.fromJson(jsonResponse[n]);
+            news.add(article);
+          }
+
           return StrapiNewsDemo.fromJson(jsonResponse[0]);
 
 //          final jsonresponse = json.decode(response.body);
