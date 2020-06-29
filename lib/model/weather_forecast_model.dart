@@ -266,7 +266,10 @@ class Daily {
       });
     }
     clouds = json['clouds'];
-    uvi = json['uvi'].toDouble();
+    if(json['uvi'] == null){
+      uvi = null;
+    } else{
+    uvi = json['uvi'].toDouble();}
   }
 
   Map<String, dynamic> toJson() {
