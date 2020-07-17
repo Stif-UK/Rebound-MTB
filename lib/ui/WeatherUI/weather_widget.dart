@@ -89,7 +89,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                     return Column(
                       children: <Widget>[
                         //surface the main weather view widget
-                        weatherMainView(snapshot, callback, location),
+                        weatherMainView(snapshot, callback, location, context),
                         //surface the bottom weather view widget
                         weatherBottomView(snapshot, context),
                       ],

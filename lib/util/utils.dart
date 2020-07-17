@@ -56,5 +56,13 @@ Absolutely todo:get rid of this crap...
 
   }
 
+  /*
+  Accepts unix timestamp as input and returns date formatted as "FRI, Apr 10"
+   */
+  static String getFormattedTime(DateTime dt){
+    return new DateFormat("j").format(dt);
+
+  }
+
 
 }
