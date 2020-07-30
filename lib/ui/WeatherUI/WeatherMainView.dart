@@ -10,7 +10,8 @@ and will display prominently in the upper centre of the screen.
 Widget weatherMainView(
     AsyncSnapshot<weatherForecastModel> snapshot,
     Function(String) callback,
-    String location){
+    String location,
+    BuildContext context){
   var forecastList = snapshot.data.current;
   var formatDate = new DateTime.fromMillisecondsSinceEpoch(snapshot.data.current.dt * 1000);
   String currentWeather = forecastList.weather[0].main;
@@ -55,28 +56,32 @@ Widget weatherMainView(
 
         SizedBox(height: 10,), //SizedBox used to add space only
         //insert the weather icon
-        Container(
-          padding: new EdgeInsets.all(10.0),
-          margin: EdgeInsets.all(20.0),
-          child: getWeatherIcon(weatherDescription: currentWeather, size: 150),
-          decoration: BoxDecoration(
-            color: Colors.grey[100],
-            borderRadius: BorderRadius.all(Radius.circular(50)),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey[500],
-                offset: Offset(4.0, 4.0),
-                blurRadius: 15.0,
-                spreadRadius: 1.0
-              ),
-              BoxShadow(
-                color: Colors.white,
-                offset: Offset(-4.0, -4.0),
-                blurRadius: 15.0,
-                spreadRadius: 1.0
-              )
-            ]
+        InkWell(
+          onTap: (){showHourlyWeather(context, snapshot);
+          },
+          child: Container(
+            padding: new EdgeInsets.all(10.0),
+            margin: EdgeInsets.all(20.0),
+            child: getWeatherIcon(weatherDescription: currentWeather, size: 150),
+            decoration: BoxDecoration(
+              color: Colors.grey[100],
+              borderRadius: BorderRadius.all(Radius.circular(50)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey[500],
+                  offset: Offset(4.0, 4.0),
+                  blurRadius: 15.0,
+                  spreadRadius: 1.0
+                ),
+                BoxShadow(
+                  color: Colors.white,
+                  offset: Offset(-4.0, -4.0),
+                  blurRadius: 15.0,
+                  spreadRadius: 1.0
+                )
+              ]
 
+            ),
           ),
         ),
 
@@ -125,6 +130,8 @@ final weatherDate = new TextStyle(
     fontSize: 20
 ) ;
 
+
+
 Widget customLocationSearchBox() {
   return Container(
     child: TextField(
@@ -142,3 +149,77 @@ Widget customLocationSearchBox() {
   );
 }
 
+
+
+void showHourlyWeather(context, AsyncSnapshot<weatherForecastModel> snapshot) {
+  var hourlyList = snapshot.data.hourly;
+  
+  
+
+  //Pop up a styled bottom sheet
+  Scaffold.of(context).showBottomSheet((context) => Container(
+    decoration: BoxDecoration(
+        color: Colors.grey[100],
+        borderRadius: BorderRadius.all(Radius.circular(50)),
+        boxShadow: [
+          BoxShadow(
+              color: Colors.blueGrey[500],
+              offset: Offset(4.0, 4.0),
+              blurRadius: 15.0,
+              spreadRadius: 1.0
+          ),
+          BoxShadow(
+              color: Colors.grey[500],
+              offset: Offset(-4.0, -4.0),
+              blurRadius: 15.0,
+              spreadRadius: 1.0
+          )
+        ]
+
+    ),
+
+      child: Container(
+        height: 0.85*MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text("48 Hour Forecast", style: weatherHeader,),
+            ),
+
+            ConstrainedBox(
+              constraints: BoxConstraints(
+                maxHeight: 0.7*MediaQuery.of(context).size.height,
+                maxWidth: 0.9*MediaQuery.of(context).size.width
+              ),
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: hourlyList.length,
+                itemBuilder: (context, index){
+                  return ListTile(
+
+                    trailing: getWeatherIcon(
+                        weatherDescription: hourlyList[index].weather[0].main),
+                    isThreeLine: true,
+                    title: Text("${hourlyList[index].temp.round()}°C ${hourlyList[index]
+                        .weather[0].description}."),
+                    subtitle: Text("Windspeed: ${hourlyList[index].windSpeed} m/sec\nHumidity: ${hourlyList[index].humidity}%"),
+                    leading: Text(utils.Utils.getFormattedTime(DateTime.fromMillisecondsSinceEpoch(hourlyList[index].dt * 1000))),
+                  );
+                  //return Text("Position $index, weather ${hourlyList[index].weather[0].main}");
+                },
+    ),
+            ),
+            FlatButton(
+              child: Text("Close"),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            )
+  ],
+        ),
+      )
+      )
+  );
+}
