@@ -2,20 +2,21 @@ import 'package:http/http.dart';
 import 'dart:convert';
 import 'dart:io';
 import 'package:rebound_mtb/Error_Handling/AppException.dart';
-
-import 'package:rebound_mtb/model/StrapiNewsDemo.dart';
+import 'package:rebound_mtb/model/StrapiNewsModel.dart';
 
 class StrapiNetwork{
 
-  Future<StrapiNewsDemo> getNews() async {
+  String bearerToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTk2MDY3MjMxLCJleHAiOjE1OTg2NTkyMzF9.y9e4YHqN9sbbelpn7okG0k0VrUi5fEmbVUPqmn_Mspo";
+
+  Future<List<StrapiNewsModel>> getNews() async {
     print("getNews() called");
-    var finalUrl = "http://localhost:1337/news-posts/";
+    var finalUrl = "http://178.128.164.111/news-posts/?_sort=created_at:DESC";
     print("URL set");
 
     try {
       print("try block entered");
       final response = await get(Uri.encodeFull(finalUrl),
-          headers: {HttpHeaders.authorizationHeader: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlZWUyNGE5NTliNWU2NGIyMjE5YjdhYSIsImlhdCI6MTU5Mjc0MzA3NSwiZXhwIjoxNTk1MzM1MDc1fQ.hwlLxgn8j57i7h0W-eHau4OXld5doi5TBt-rPhmTkPc"})
+          headers: {HttpHeaders.authorizationHeader: "Bearer $bearerToken"})
           .timeout(
           Duration(seconds: 30));
 
@@ -24,19 +25,22 @@ class StrapiNetwork{
         case 200:
           print("Got a ${response.statusCode} back!\n"
               "${response.body}");
+          print("decoding the body...");
           final jsonResponse = json.decode(response.body);
-          List<StrapiNewsDemo> news = [];
+          print("creating the list...");
+          List<StrapiNewsModel> articles = [];
 
-          for(var n in jsonResponse){
-            StrapiNewsDemo article = StrapiNewsDemo.fromJson(jsonResponse[n]);
-            news.add(article);
+          print("iterating over the response...");
+
+          for(var i in jsonResponse){
+            articles.add(StrapiNewsModel.fromJson(i));
           }
 
-          return StrapiNewsDemo.fromJson(jsonResponse[0]);
 
-//          final jsonresponse = json.decode(response.body);
-//          return Users.fromJson(jsonresponse);
-//          return Users.fromJson(jsonresponse[0]);
+          print("returning the articles...");
+          return articles;
+//
+
 
 
         case 401:

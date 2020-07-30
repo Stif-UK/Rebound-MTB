@@ -64,5 +64,12 @@ Absolutely todo:get rid of this crap...
 
   }
 
+  /*
+  Returns the base URL of the Strapi server
+   */
+  static String getBaseURL(){
+    return "http://178.128.164.111";
+}
+
 
 }
