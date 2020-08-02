@@ -3,10 +3,11 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:rebound_mtb/Error_Handling/AppException.dart';
 import 'package:rebound_mtb/model/StrapiNewsModel.dart';
+import 'package:rebound_mtb/network/StrapiAuthNetwork.dart';
 
-class StrapiNetwork{
+class NewsNetwork{
 
-  String bearerToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTk2MDY3MjMxLCJleHAiOjE1OTg2NTkyMzF9.y9e4YHqN9sbbelpn7okG0k0VrUi5fEmbVUPqmn_Mspo";
+  String bearerToken = "";
 
   Future<List<StrapiNewsModel>> getNews() async {
     print("getNews() called");
@@ -15,6 +16,11 @@ class StrapiNetwork{
 
     try {
       print("try block entered");
+
+      //get a token
+      Future<String> futureToken = StrapiAuthNetwork().getStrapiToken();
+      bearerToken = await futureToken;
+
       final response = await get(Uri.encodeFull(finalUrl),
           headers: {HttpHeaders.authorizationHeader: "Bearer $bearerToken"})
           .timeout(

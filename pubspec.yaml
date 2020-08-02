@@ -32,6 +32,8 @@ dependencies:
   launch_review: ^2.0.0
   shared_preferences: ^0.5.7+3
   flutter_markdown: ^0.4.2
+  table_calendar: ^2.2.3
+  characters: ^1.0.0
 
 
 dev_dependencies:

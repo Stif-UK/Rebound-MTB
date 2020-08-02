@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rebound_mtb/ui/MapsUI/Accident_Widget.dart';
+import 'package:rebound_mtb/ui/AccidentsUI/Accident_Widget.dart';
+import 'package:rebound_mtb/ui/EventsUI/EventsMainWidget.dart';
 import 'package:rebound_mtb/ui/WeatherUI/weather_widget.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:rebound_mtb/ui/newsUI/NewsWidget.dart';
@@ -16,6 +17,7 @@ class _ReboundState extends State<Rebound> {
   final List<Widget> _children =[
     WeatherWidget(),
     NewsWidget(),
+    EventsMainWidget(),
     AccidentWidget(),
   ];
 
@@ -43,6 +45,8 @@ class _ReboundState extends State<Rebound> {
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: _currentIndex,
+          fixedColor: Colors.blue,
+          unselectedItemColor: Colors.blue,
           onTap: onTabTapped,
           items: [
         BottomNavigationBarItem(
@@ -52,6 +56,10 @@ class _ReboundState extends State<Rebound> {
             BottomNavigationBarItem(
               icon: new Icon(MdiIcons.newspaper),
               title: new Text("News"),
+            ),
+            BottomNavigationBarItem(
+              icon: new Icon(MdiIcons.calendar),
+              title: new Text("Calendar"),
             ),
         BottomNavigationBarItem(
           icon: new Icon(Icons.priority_high),

@@ -52,8 +52,12 @@ Absolutely todo:get rid of this crap...
   Accepts unix timestamp as input and returns date formatted as "FRI, Apr 10"
    */
   static String getFormattedDate(DateTime dt){
-    return new DateFormat("EEE, MMM d").format(dt);
-
+    if(dt == null){
+      return "today";
+    }
+    else {
+      return new DateFormat("EEE, MMM d").format(dt);
+    }
   }
 
   /*

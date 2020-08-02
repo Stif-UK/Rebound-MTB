@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rebound_mtb/model/StrapiNewsModel.dart';
-import 'package:rebound_mtb/network/StrapiNetwork.dart';
+import 'package:rebound_mtb/network/NewsNetwork.dart';
 import 'package:rebound_mtb/ui/Dialogs/Alerts.dart' as alerts;
 import 'package:rebound_mtb/ui/newsUI/NewsArticleWidget.dart';
 import 'package:rebound_mtb/util/utils.dart' as utils;
@@ -23,7 +23,7 @@ class _NewsWidgetState extends State<NewsWidget> {
   void initState() {
     super.initState();
     print("Initialising the news widget and making the API call");
-    newsObject = StrapiNetwork().getNews();
+    newsObject = NewsNetwork().getNews();
   }
 
   @override
@@ -54,7 +54,7 @@ class _NewsWidgetState extends State<NewsWidget> {
                         ),
                         trailing: Container(
                         child: CircleAvatar(
-                        backgroundImage: NetworkImage("http://178.128.164.111${news.data[index].coverImage.formats.thumbnail.url}"),
+                        backgroundImage: NetworkImage(buildCoverImageURL(news, index)),
                         ),
                           width: 50,
                           height: 50,
@@ -88,6 +88,30 @@ class _NewsWidgetState extends State<NewsWidget> {
     );
   }
 
+  String buildCoverImageURL(AsyncSnapshot<List<StrapiNewsModel>> news, int index) {
+    String format = news.data[index].coverImage.ext;
+    String response = "";
+
+    switch (format){
+      case ".jpg":
+        {
+          return "http://178.128.164.111${news.data[index].coverImage.formats.thumbnail.url}";
+        }
+        break;
+      case ".svg":
+        {
+          return "http://178.128.164.111${news.data[index].coverImage.url}";
+        }
+        break;
+      default:
+        {
+          return "";
+        }
+        break;
+    }
+
+
+  }
 
   void openArticle(StrapiNewsModel article) {
     Navigator.push(context, MaterialPageRoute(
@@ -102,7 +126,7 @@ class _NewsWidgetState extends State<NewsWidget> {
 
     if(difference>300){
       setState(() {
-        newsObject = StrapiNetwork().getNews();
+        newsObject = NewsNetwork().getNews();
         newsObject.then((value) => print("Refreshed the news successfully"),
         onError: (error){
           alerts.Alerts.failedAPICallAlert(context, error.toString());
