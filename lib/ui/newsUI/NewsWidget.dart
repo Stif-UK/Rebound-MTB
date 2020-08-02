@@ -16,12 +16,11 @@ class NewsWidget extends StatefulWidget {
 
 
 class _NewsWidgetState extends State<NewsWidget> {
-  Future<List<StrapiNewsModel>> newsObject;
   DateTime lastRefreshed = DateTime.now();
+  Future<List<StrapiNewsModel>> newsObject;
 
   @override
   void initState() {
-    // TODO: Update initialisation of location
     super.initState();
     print("Initialising the news widget and making the API call");
     newsObject = StrapiNetwork().getNews();
@@ -51,7 +50,8 @@ class _NewsWidgetState extends State<NewsWidget> {
                       },
                       itemBuilder: (context, index){
                       return ListTile(
-                        title: Text(news.data[index].headline),
+                        title: Text(news.data[index].headline,
+                        ),
                         trailing: Container(
                         child: CircleAvatar(
                         backgroundImage: NetworkImage("http://178.128.164.111${news.data[index].coverImage.formats.thumbnail.url}"),
