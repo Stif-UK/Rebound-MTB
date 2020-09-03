@@ -16,4 +16,9 @@ class api_keys{
     return "";
   }
 
+  //get password set for Strapi API for appuser
+  static String getStrapiUser(){
+    return "";
+  }
+
 }

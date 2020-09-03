@@ -3,12 +3,11 @@ class AccidentCopy{
   String introCopy = "Falling off a bike is never fun, but it's worse if someone is injured and requires medical attention."
       "\n\nThis section of the app aims to provide some guidance and support should the worst happen whilst out riding. ";
 
-  String calmCopy = "First, it's important to stay calm.  \n \n • Move the casualty and bike off the trail if safe to do so."
+  String calmCopy = "First, it's important to stay calm.  \n \n • If possible, make other trail users aware to avoid other bikes coming down the trail."
       " \n • Identify your location. "
       " \n • Contact emergency services. "
       " \n • Administer basic first aid. "
-      " \n • If you are riding in a group, consider having a member of the group move to help emergency responders find the casualty. "
-      "Others can help by stopping other riders coming down the trail.\n \n";
+      " \n • If you are riding in a group, consider having a member of the group move to help emergency responders find the casualty.\n \n";
 
   String locationCopy = "Rebound use what3words to support you to provide an accurate "
       "location to emergency responders. \n \n Simply click the icon below to generate a 3 word location identifier"
